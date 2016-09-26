@@ -1,0 +1,144 @@
+---
+title: "Aula 1"
+author: "Eduardo"
+date: "September 26, 2016"
+output: html_document
+---
+
+Em nossa primeira aula discutimos a instalação do R e Rstudio, instalação de pacotes e uma idéia inicial do uso do Rmarkdown para elaboração de relatórios integrados com R junto ao texto. 
+
+Esse documento é um exemplo da utilização de Rmarkdown para revisarmos os conceitos da linguagem R vistas em aula. 
+
+## Calculadora simples
+Vimos que podemos utilizar o R como uma simples calculadora:
+
+```{r}
+2+2
+```
+Podendo realizar operações mais elaboradas:
+```{r}
+30*(573-273)/22 + 14^2
+```
+Tendo a possibilidade de atribuir o resultado de determinado cálculo a um objeto com um nome escolhido:
+
+```{r}
+(resultado <- 122/5 + 91)
+```
+E sempre que fizermos referência ao objeto resultado seu valor será recuperado:
+```{r}
+resultado
+resultado + 1000
+```
+E assim podemos utilizar esses objetos para facilitar a realização de cálculos. Uma extensão natural do uso desses objetos que representam um número é a utilização de vetores.
+
+##Vetores
+Para criar um vetor vamos utilizar o comando _c()_ e incluimos os elementos do vetor separados por vírgulas:
+
+```{r}
+primeiro_vetor <- c(1,30,500)
+primeiro_vetor
+segundo_vetor <- c(100,3,50)
+segundo_vetor
+```
+E sempre que utilizarmos o comando _c()_ os elementos serão concatenados em um vetor. No exemplo seguinte vamos criar um vetor concatenando os dois vetore criados anteriormente.
+
+```{r}
+vetores_reunidos <- c(primeiro_vetor,segundo_vetor)
+vetores_reunidos
+```
+
+Assim como vimos a utilização de um objeto que armazenava um único número para realização de cálculos podemos utilizar tambêm os objetos que armazenam vetores para realização de cálculos.
+Como primeiro exemplo vamos somar 1000 ao primeiro_vetor:
+
+```{r}
+primeiro_vetor
+primeiro_vetor + 1000
+```
+Ou alternativamente podemos calcular 25% de cada um dos valores do vetor
+```{r}
+primeiro_vetor
+primeiro_vetor * 0.25
+```
+
+Podemos tambêm realizar uma soma entre os elementos dos dois vetores:
+
+```{r}
+primeiro_vetor
+segundo_vetor
+primeiro_vetor +  segundo_vetor
+```
+Note que a soma foi realizada elemento a elemento de forma que o primeiro elemento do primeiro vetor foi somado ao primeiro elemento do segundo vetor e o mesmo comportamento foi repetido para cada elemento dos vetores. 
+
+Vimos em aula que o R adota um comportamento chamado de reciclagem quando vai realizar operações com vetores de tamanhos diferentes. No exemplo a seguir vamos realizar a soma entre um vetor com 4 elementos e um vetor com 2 elementos.
+
+```{r}
+v1 <- c(1,2,3,4)
+v2 <- c(10,20)
+v1
+v2
+v1 + v2
+```
+Note que os elementos do segundo vetor são reciclados e reutilizados na soma com os elementos 3 e 4 do primeiro vetor. Esse é o comportamento padrão no R e é de grande importância saber como tirar proveito desse comportamento. 
+
+Vimos que em caso das dimensões dos vetores não serem conformes o comportamento de reciclagem é utilizado mas um aviso é passado para o usuário, como pode ser visto no exemplo a seguir:
+
+```{r}
+v1 <- c(1,2,3,4)
+v2 <- c(10,20,30)
+v1
+v2
+v1 + v2
+```
+
+##Outros tipos de dados
+
+Vimos a manipulação e utilização de elementos e vetores de elementos de tipo numérico, mas sabemos que em aplicações reais precisaremos trabalhar com outros tipos de variávies. Vimos exemplos de variávies de tipo _string_ e _lógico_
+
+```{r}
+carros <- c("gol","corsa","uno")
+carros
+logico <- c(T,TRUE,F,FALSE)
+logico
+valores <- c(1,5,15,20)
+valores
+valores >= 10
+```
+Para criar elementos do tipo _string_ precisamos utilizar as aspas para indicar que aquele elemento é do tipo _string_ e não um determinado nome de objeto definido para o R.
+
+Para criar elementos do tipo _lógico_ podemos utilizar as palavras completas _TRUE_ e _FALSE_ ou suas abreviações _T_ e _F_, lembrando que no R existe distinção entre letras maiúsculas e minúsculas e as variáveis do tipo lógico sempre serão definidas com letras maiúsculas. 
+
+No exemplo vimos que podemos criar um vetor com valores lógicos ou podemos ter esses valores lógicos como resultados de avaliações de comparações em que verificamos quais dos elementos do vetor eram maiores ou iguais ao número 10. Dentre as operações de comparação podemos utilizar:
+
+* _>_ maior
+* _<_ menor
+* _==_ igualdade
+* _>=_ maior ou igual
+* _<=_ menor ou igaul 
+* _!=_ desigual
+
+##Coerção
+Vimos que os vetores são objetos do tipo homogêneo, o que indica que todos os elementos de um vetor devem ser do mesmo tipo (_numérico_,_string_,_lógico_). Se colocarmos elementos de tipos diferentes dentro de um mesmo vetor o R vai aplicar uma coerção em alguns elementos para fazer com que todos tenham o mesmo tipo.
+
+Vimos que se juntarmos elementos _numéricos_ com elementos do tipo _string_, os elementos _numéricos_ serão convertidos para o tipo _string_
+
+```{r}
+mistura <- c("palavra","texto",100,200)
+mistura
+```
+note que aos números foram acrescidas aspas, indicando que esses valores são do tipo _string_
+
+Vimos que se juntarmos elementos _lógicos_ com elementos do tipo _string_, os elementos _lógicos_ serão convertidos para o tipo _string_
+
+```{r}
+mistura2 <- c(TRUE, "milho", F, "soja")
+mistura2
+```
+note que aos elementos _lógicos_ foram acrescidas aspas, indicando que esses valores são do tipo _string_
+
+Por fim vimos que se juntarmos elementos _numéricos_ com elementos do tipo _lógico_, os elementos _lógicos_ serão convertidos para o tipo _numérico_, de forma que os valores do tipo _TRUE_ serão convertidos para o numeral 1 e os valores do tipo _FALSE_ serão convertidos para o numeral 0.
+
+```{r}
+mistura3 <- c(100,200,TRUE,FALSE,500,T,F)
+mistura3
+```
+
