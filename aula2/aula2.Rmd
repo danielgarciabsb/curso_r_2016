@@ -1,0 +1,218 @@
+---
+title: "Aula 2"
+author: "Eduardo"
+date: "September 28, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Em nossa segunda aula vimos como manipular vetores, matrizes e data.frames
+
+##Vetores
+
+A partir da criação de um vetor podemos ter interesse em acessar diferentes elementos dentro de um vetor e podemos realizar essa operação de diferentes formas:
+
+```{r}
+vet1 <- (1:6)*100
+vet1
+```
+Suponha que temos interesse em acessar o terceiro elemento do vetor. Sempre que formos acessar determinados elementos de um objeto vamos usar os colchetes [] após o nome do elemento conforme o seguinte exemplo:
+
+```{r}
+vet1
+vet1[3]
+```
+
+Podemos tambêm ter interesse em acessar um conjunto de elementos de um determinado vetor. Suponha que temos interesse nos três ultimos elementos do vetor _vet1_, podemos acessar esses elementos indicando em um vetor dentro dos colchetes a posição em que estão esses elementos.
+```{r}
+vet1
+vet1[c(4,5,6)]
+```
+
+Podemos tambem indicar utilizando elementos lógicos quais são os elementos que devem ser retornados utilizando _TRUE_ e quais não devem ser retornados utilizando _FALSE_. Vejamos o exemplo de selecionar os três ultimos elementos como no exemplo anterior:
+
+```{r}
+vet1
+vet1[c(F,F,F,T,T,T)]
+```
+
+Pode-se utilizar o princípio de reciclagem na seleção de elementos utilizando os valores lógicos. Note que para o vetor de dimensão 6 foi necessário indicar _TRUE_ e _FALSE_ para as seis posições do vetor. Se utilizarmos o princípio de reciclagem podemos selecionar apenas os elementos que estiverem nas posições ímpares por exemplo fazendo:
+
+```{r}
+vet1
+vet1[c(T,F)]
+```
+E assim a primeira posição será selecionada e a segunda não. Como o vetor que indica as posições tem tamanho dois enquanto o vetor _vet1_ tem tamanho 6, o vetor que indica as posições acaba, e ele é reciclado na definição se os próximos elementos devem ser exibidos ou não. Assim o terceiro elemento será exibido e o quarto elemento não será exibido pois o vetor _c(T,F)_ será reciclado, e o mesmo princípio será utilizado na definição se o quinto e sexto elemento devem ser exibidos.
+
+Na escolha de elementos de um vetor pode-se utilizar sinal negativo para indicar quais elementos não devem ser incluidos, conforme os exemplos:
+
+```{r}
+vet1
+vet1[-3]
+vet1[-c(1,2,3)]
+```
+E assim escolhemos, no primeiro caso, todos os elementos de _vet1_ menos o terceiro, e no segundo caso, todos menos o primeiro, segundo e terceiro.
+
+## Ordenação
+Vimos que podemos utilizar a seleção dos elementos de um vetor para ordenar um vetor segundo alguma ordenação de interesse. 
+Considere o seguinte vetor:
+
+```{r}
+vet2 <- c(9,3,5,2)
+vet2
+```
+Se tivermos interesse em exibir esse vetor de forma ordenada crescente devemos exibir primeiro o quarto elemento, depois o segundo elemento, depois o terceiro elemento e por último o primeiro elemento. Podemos fazer isso da seguinte forma:
+
+```{r}
+vet2[c(4,2,3,1)]
+```
+E o vetor está ordenado de forma crescente. Em casos de vetores maiores não seria possível definir a ordem de apresentação dos valores de forma manual e a função _order_ define a posição dos vetores ordenados da mesma forma que foi estabelecida visualmente.
+
+```{r}
+order(vet2)
+```
+Note que o resultado da função order foi o mesmo que estabelecido manualmente na ordenação realizada anteriormente em que vimos que deveriamos apresentar primeiro o quarto elemento, depois o segundo elemento, depois o terceiro elemento e por último o primeiro elemento
+_4,2,3,1_
+Dessa forma, podemos utilizar o resultado da função _order_ sem precisar estabelecer manualmente a ordenação dos elementos:
+
+```{r}
+vet2[order(vet2)]
+```
+
+Apesar de ser funamental entender o funcionamento e a utilização da função _order_, no caso de ordenação de vetores simples é mais fácil utilizar a função _sort_ que já retorna o vetor ordenado.
+
+```{r}
+sort(vet2)
+```
+
+Caso tenhamos interesse numa ordenação decrescente ambas as funções _order_ e _sort_ possuem uma opção para essa forma.
+
+```{r}
+sort(vet2,decreasing = T)
+order(vet2, decreasing = T)
+vet2[order(vet2,decreasing = T)]
+```
+
+##Matrizes
+Uma extensão do coneito do vetor é a utilização de matrizes. Para criar uma matriz vamos utilizar a função _matrix_, passando como argumentos os valores que irão preencher a matriz e o número de linhas ou colunas que formarão a matriz.
+
+No primeiro exemplo vamos criar uma matriz quadrada de 3 linhas e 3 colunas com os números de 1 até 9:
+
+```{r}
+mat1 <- matrix(1:9,nrow=3)
+mat1
+```
+e podemos obter o mesmo resultado determinando o número de colunas.
+
+```{r}
+mat2 <- matrix(1:9,ncol=3)
+mat2
+```
+Note que por padrão o preenchimento dos elementos na matriz é feito por colunas, de forma que primeiro será preenchida a coluna um, posteriormente a coluna dois e as demais colunas. Para que os dados sejam preenchidos por linhas utilizaremos o argumento _byrow=TRUE_ na definição da matriz:
+
+```{r}
+mat3 <- matrix(1:9,ncol=3,byrow = TRUE)
+mat3
+```
+
+Assim como visto para o caso dos vetores, para acessar determinados elementos de uma matriz deve-se utilizar os colchetes indicando os endereços de linha e coluna de interesse _[linha,coluna]_.
+Para acessar o elemento que se encontra na linha 2 e coluna 3 faremos:
+```{r}
+mat1
+mat1[2,3]
+```
+
+Pode-se tambêm acessar um conjunto de linhas ou conjunto de colunas.
+Para acessar toda a linha dois por exemplo utiliza-se:
+```{r}
+mat1[2,]
+```
+Para acessar as colunas dois e três:
+```{r}
+mat1[,c(2,3)]
+```
+
+Pode-se utilizar esse recurso para ordenar por exemplo as linhas da matriz:
+```{r}
+mat1
+mat1[c(3,2,1),]
+```
+Podemos fazer operações de forma similar às que foram realizadas com vetores, lembrando que o princípio de reciclagem será utilizado sempre que as dimensões dos operandos for diferente.
+No exemplo seguinte o valor 1000 será reciclado para a soma com cada um dos elementos da matriz
+```{r}
+mat1
+mat1+1000
+```
+No exemplo seguinte o vetor será reciclado, de forma que as operações são realizadas inicialmente na primeira coluna da matriz e posteriormente na segunda coluna e de forma análoga para as demais colunas.
+
+```{r}
+vet <- c(100,200,300)
+vet
+mat1 + vet
+```
+
+As operações entre duas matrizes são realizadas elemento a elemento.
+```{r}
+mat4 <- matrix((1:9)*1000,nrow=3)
+mat4
+mat1 + mat4
+```
+Para realizar multiplicação entre matrizes conforme as técnicas de álgebra linear deve-se utilizar o operador _%*%_ conforme o seguinte exemplo
+
+```{r}
+mat1 %*% mat4
+```
+
+Assim como os vetores, as matrizes são objetos de tipo homogêneo, de forma que todos os elementos devem ser do mesmo tipo(numérico, caracter, lógico). Caso elementos de tipos diferentes sejam inseridos em uma matriz, alguns elementos serão transformados para que todos tenham o mesmo tipo.
+
+```{r}
+matletras <- matrix(letters[1:9],nrow=3)
+matletras
+```
+
+```{r}
+matmisturada <- matrix(c(TRUE,letters[1:7],1000),nrow=3) 
+matmisturada
+```
+É comum a necessidade de reunir em uma tabela diferentes tipos de variávies e para essa finalidade pode-se utilizar objetos do tipo _data.frame_
+
+##Data.frame
+
+No próximo exemplo será criada uma tabela com informações de diferentes tipos:
+
+```{r}
+notas <- c(10,7,3,5)
+nomes <- c("Ana", "bia", "edu", "joao")
+cotista <- c(T,F,T,F)
+sexo <- c("F","F","M","M")
+alunos <- data.frame(nomes,notas,cotista,sexo)
+alunos
+```
+De forma análoga à matriz, os elementos podem ser acessados a partir dos endereços de _[linha,coluna]_. No caso das tabelas é muito comum que diferentes variáveis sejam nomeadas e pode-se também utilizar os nomes das variáveis para acessa-las. No próximo exemplo está ilustrada a possibilidade de acessar a variável _notas_ de diferentes formas:
+
+```{r}
+alunos[,2]
+alunos[,"notas"]
+alunos$notas
+```
+
+Partindo do acesso de dados no _data.frame_ os próximos exemplos ilustram como ordenar uma tabela e selecionar determinadas observações segundo alguma condição de interesse.
+
+Inicialmente ordenar a tabela pelas notas dos alunos de forma decrescente:
+```{r}
+alunos[order(alunos$notas,decreasing = T),]
+```
+
+Selecionar apenas os alunos com notas maiores ou iguais a 6:
+```{r}
+alunos[alunos$notas >= 6, ]
+```
+
+Selecionar apenas os alunos cotistas:
+```{r}
+alunos[alunos$cotista,]
+```
+
