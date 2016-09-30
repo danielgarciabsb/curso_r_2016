@@ -1,4 +1,4 @@
-Local Sexo Ct  Cc  Ca  Peso
+Local Sexo Ct Cc Ca Peso
 BaiaFormosa M 94,6 24,8 64,8 9,67
 BaiaFormosa F 133 34,7 87,7 29,32
 BaiaFormosa F 113,5 32,2 75,6 18,4
