@@ -1,7 +1,7 @@
 ---
 title: "Exercicio de avaliação da aula"
 author: "Minicurso R"
-output: html_document
+output: pdf_document
 ---
 Nesse exercicio vamos simular cotações de abertura e fechamento do dolar durante 30 dias a partir de uma segunda-feira dia primeiro (suponha que aos sábados e domingos tambem ocorre transação de moedas). 
 
