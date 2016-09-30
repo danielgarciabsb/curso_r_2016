@@ -1,0 +1,65 @@
+---
+title: "Exercício de avaliação da aula"
+author: "Minicurso R"
+date: "5 de maio de 2016"
+output: html_document
+---
+Nesse exercicio vamos simular cotações de abertura e fechamento do dolar durante 30 dias a partir de uma segunda-feira dia primeiro (suponha que aos sábados e domingos tambem ocorre transação de moedas). 
+
+Para simular os dados vamos rodar os seguintes comandos:
+
+```{r}
+set.seed(123)
+cotacoes <- round(rnorm(60, 3.7, .3), 4)
+cotacoes
+```
+
+Considerando que os dados estao organizados na forma: 
+`aberturaDia1,fechamentoDia1,aberturaDia2,fechamentoDia2,...,aberturaDia30,fechamentoDia30`
+
+##Determine a variação diária
+
+Inicialmente vamos criar um vetor com as aberturas e outro com os fechamentos. Podemos usar o princípio de reciclagem para fazer isso.
+
+```{r}
+abertura <- cotacoes[c(T,F)]
+abertura
+fechamento <- cotacoes[c(F,T)]
+fechamento
+```
+
+Agora basta fazer a subtração entre esses vetores.
+
+```{r}
+variacao <- fechamento - abertura
+variacao
+```
+
+##Determine o dia com maior alta e maior baixa
+
+Vimos que a função `order()` indica as posições de ordenação das observacões, portanto podemos pegar o primeiro e último elemento do vetor com as posições.
+
+```{r}
+diaMinimo <- order(variacao)[1]
+diaMinimo
+which.min(variacao)
+diaMaximo <- order(variacao)[30]
+diaMaximo
+which.max(variacao)
+```
+
+##Apresente apenas as variações de sextas-feiras
+
+As variações de sextas-feiras
+
+```{r}
+indices <- (1:length(variacao) %% 7) == 5
+variacao[indices]
+```
+ou alternativamente:
+
+```{r}
+indices <- c(F,F,F,F,T,F,F)
+variacao[indices]
+```
+
