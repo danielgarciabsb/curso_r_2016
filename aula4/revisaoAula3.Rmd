@@ -1,0 +1,41 @@
+---
+title: "Revisão da aula 3"
+author: "Eduardo"
+output: pdf_document
+---
+
+Em nossa terceira aula vimos como importar conjuntos de dados para o R. Utilizamos a função
+_read.table_ conforme o exemplo a seguir para importar dados de metereologia obtidos da página do inmet.
+
+```{r}
+dados <- read.table("dadosinmet",sep=",", head=TRUE)
+head(dados)
+summary(dados)
+```
+A função _read.table_ foi utilizada com 3 argumentos, o primeiro deles foi o nome do arquivo a ser aberto, o R foi capaz de localizar esse arquivo localmente no computador pois o arquivo está posicionado no mesmo diretório deste arquivo _rmarkdown_ de revisão. O segundo argumento (_sep=","_) é referente a tabulação existente no banco de dados que tem vírgulas separando cada uma das observações e o terceiro argumento (_head=TRUE_) é para indicar que o banco de dados tem um cabeçalho em sua primeira linha, que representa os nomes das variávies. 
+
+Existem algumas alternativas para que o R possa localizar o arquivo que se deseja importar. Uma delas seria passar o endereço completo do arquivo em sua máquina conforme o seguinte exemplo que ilustra os diretórios em que estão organizados meu computador até a pasta que está o arquivo de interesse
+
+```{r, tidy = TRUE, size="small"}
+dados <- read.table( "/home/eduardo/Dropbox/AAAUNB/Extensao/cursoRsegundo2016/disponibilizar/aula4/dadosinmet",sep=",",head=TRUE)
+```
+
+Uma outra possibilidade é utilizar a função _file.choose()_ que permite que o usuário escolha interativamente o arquivo que deseja importar, navegando e clicando pelas janelas do sistema operacional para encontrar o arquivo de interesse.
+
+```{r, eval=FALSE}
+read.table(file.choose(), sep=",", head=TRUE)
+```
+
+Após a importação do arquivo foi utilizado o comando (_head(dados)_) que permite visualizar as primeiras linhas do banco de dados possibilitando ver as diferentes variáveis presentes no banco de dados e seus tipos, conferindo se a importação dos dados foi realizada de forma correta. Tambem foi ilustrado a utilização do comando (_summary(dados)_) que faz um resumo descritivo das diferentes variáveis presentes no banco de dados.
+
+Além da importação de dados disponíveis localmente no computador que estamos utilizando vimos exemplo de importação de banco de dados diretamente de um endereço de internet.
+
+```{r, tidy = TRUE, size="small"}
+dadosCamaroes <- read.table("https://raw.githubusercontent.com/cursoRunb/curso_r_2016/master/aula3/dados/dadoscamarao.txt",head=TRUE,dec=",",sep=" ")
+head(dadosCamaroes)
+summary(dadosCamaroes)
+```
+
+E nesse caso a função _read.table_ foi passada com o endereço de internet do arquivo de interesse, a indicação que os dados tinham em sua primeira linha o cabeçalho com os nomes das variáveis (_head=TRUE_), a indicação que os números decimais estavam separados por vírgulas no banco de dados (_dec=","_), e finalmente com (_sep=" "_) a indicação de tabulação que as observações das diferentes variávies estão separadas por espaços.
+
+É importante visualizar os dados em um editor de textos ou outra ferramenta antes de fazer a importação de dados para o R, para ver a forma em que se encontram os dados e poder determinar os parâmetros que devem ser passados para função _read.table_ para que a mesma faça importação levando em conta as particularidades do banco de dados a ser utilizado.

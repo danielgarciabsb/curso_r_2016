@@ -1,0 +1,26 @@
+---
+title: "Exercício de Aula"
+author: "Linguagem R"
+output: pdf_document
+---
+
+O conjunto de dados _USArrests_ contem estatísticas de criminalidade dos 50 estados dos EUA juntamente com o percentual da população em áreas urbanas _UrbanPop_. As variáveis apresentadas são referentes a Assassinatos (_Murder_), Agressões (_Assault_) e estupros (_Rape_). 
+
+
+
+
+###Crie os seguintes objetos:
+
+* Data.frame chamado _estados_ contendo todas as informações dos estados com as 5 menores taxas de Assassinatos _Murder_.
+
+* Objeto chamado _media_ contendo a média de Assasinatos dos 3 estados com as menores taxas.
+
+* Vetor chamado _desvios_ com os desvios entre as taxas de assassinatos entre todos os 50 estados e a média das taxas.
+
+
+* Escalar _contagem_ com o número de estados com menos de 50% de população urbana _UrbanPop_
+
+
+* Supondo que um erro na divulgação dos dados tenha sido descoberto, corrija o número de assasinatos _Murder_ do estado de Delaware no banco de dados em uma copia do banco de dados chamada _editado_. O valor correto é o dobro do valor apresentado nos dados originais. 
+
+* Um vetor chamado _crimes_ que contenha a soma do total de crimes para cada estado.
